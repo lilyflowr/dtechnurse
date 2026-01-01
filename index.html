@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DTech Nurse</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <meta name="description" content="DTech Nurse — helping busy women move into data careers with step-by-step training, community, and coaching.">
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --card:#ffffff;
+      --accent:#b53f88; /* warm magenta */
+      --accent-2:#4ec5c5; /* teal */
+      --muted:#6b7280;
+      --radius:14px;
+      --max:1100px;
+      --glass: rgba(255,255,255,0.6);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{font-family:Inter,system-ui,Arial,sans-serif;margin:0;background:linear-gradient(180deg,var(--bg),#eef2f6);color:#0f172a;line-height:1.45}
+    .container{max-width:var(--max);margin:40px auto;padding:24px}
+
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:white;font-weight:700;font-family:'Playfair Display',serif}
+    .brand h1{margin:0;font-size:18px}
+    nav{display:flex;gap:12px}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px}
+    nav a.cta{background:var(--accent);color:white}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;margin-top:28px;align-items:start}
+    @media (max-width:900px){.hero{grid-template-columns:1fr}nav{display:none}}
+    .hero-card{background:var(--card);border-radius:var(--radius);padding:28px;box-shadow:0 10px 30px rgba(15,23,42,0.06)}
+    .hero h2{font-family:'Playfair Display',serif;margin:0;font-size:36px;color:#08122a}
+    .lead{color:var(--muted);margin:16px 0}
+    .tags{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+    .tag{background:linear-gradient(90deg,rgba(78,197,197,0.12),rgba(255,107,138,0.08));padding:8px 12px;border-radius:999px;color:var(--accent-2);font-weight:600;font-size:13px}
+    .cta-row{display:flex;gap:12px;margin-top:18px}
+    .btn{padding:12px 18px;border-radius:12px;border:0;font-weight:700;cursor:pointer}
+    .btn-primary{background:var(--accent);color:white}
+    .btn-outline{background:transparent;border:2px solid var(--accent);color:var(--accent)}
+
+    /* Right column */
+    .profile{background:linear-gradient(180deg,rgba(4,14,23,0.02),rgba(255,255,255,0.5));padding:18px;border-radius:18px}
+    .avatar{width:96px;height:96px;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:28px}
+    .kpi{display:grid;gap:12px;margin-top:16px}
+    .stat{background:#fff;border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(12,16,24,0.04)}
+    .stat .num{font-weight:800;color:var(--accent-2)}
+
+    /* Sections */
+    section{margin-top:28px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media (max-width:900px){.grid-3{grid-template-columns:1fr}}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 8px 24px rgba(15,23,42,0.04)}
+    h3{margin:0 0 8px 0}
+    .muted{color:var(--muted)}
+
+    /* Packages */
+    .price{font-size:20px;font-weight:800;margin-top:6px}
+    .package-list{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+
+    /* Footer */
+    footer{margin-top:40px;padding:18px;text-align:center;color:var(--muted)}
+
+    /* Utilities */
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(0,0,0,0.03);font-weight:600}
+
+    /* small screens adjustments */
+    @media (max-width:520px){.hero h2{font-size:28px}}
+  /* Mobile Menu */
+.hamburger{display:none;cursor:pointer;flex-direction:column;gap:5px;z-index:999;position:relative}
+.hamburger span{display:block;width:26px;height:3px;background:#0f172a;border-radius:3px;transition:0.3s}
+@media(max-width:900px){.hamburger{display:flex}}
+
+.mobile-menu{position:fixed;inset:0;background:white;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;font-size:2rem;font-weight:700;opacity:0;pointer-events:none;transition:0.3s;z-index:998}
+.mobile-menu.show{opacity:1;pointer-events:all}
+.mobile-menu a{text-decoration:none;color:#0f172a}
+
+/* Hamburger → X Animation */
+.hamburger.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+/* Floating WhatsApp */
+.whatsapp-float{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 10px 24px rgba(15,23,42,0.18);z-index:1000;text-decoration:none;transition:transform 0.2s ease}
+.whatsapp-float:hover{transform:translateY(-2px)}
+
+/* Thank-you modal */
+.thankyou-overlay{position:fixed;inset:0;background:rgba(15,23,42,0.55);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity 0.3s ease;z-index:999}
+.thankyou-overlay.show{opacity:1;pointer-events:auto}
+.thankyou-modal{background:var(--card);border-radius:18px;max-width:420px;width:100%;padding:32px;box-shadow:0 25px 60px rgba(15,23,42,0.25);text-align:center;position:relative;transform:translateY(16px);transition:transform 0.3s ease}
+.thankyou-overlay.show .thankyou-modal{transform:translateY(0)}
+.thankyou-modal h3{margin:0;font-family:'Playfair Display',serif;font-size:26px;color:#08122a}
+.thankyou-modal p{margin:12px 0 0;color:var(--muted);font-size:15px}
+.thankyou-close{position:absolute;top:12px;right:12px;border:none;background:transparent;font-size:20px;color:var(--muted);cursor:pointer;padding:6px;border-radius:50%;transition:background 0.2s}
+.thankyou-close:hover{background:rgba(15,23,42,0.06)}
+body.modal-open{overflow:hidden}
+
+/* Responsive refinements */
+.program-layout{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap}
+.program-card{flex:1 1 0;min-width:260px;display:flex;flex-direction:column;}
+.program-card.price-card{flex:0 0 350px;max-width:320px}
+.program-card.price-card{display:flex; flex-direction: column;justify-content: space-between;}
+.contact-layout{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap}
+form.contact-card{flex:1 1 0;min-width:280px;display:flex;flex-direction:column;height:100%}
+.contact-card.contact-links{flex:0 0 320px;max-width:320px;display:flex;flex-direction:column;}
+.contact-card .links-stack{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.contact-card .links-stack a{text-decoration:none;font-weight:600;color:var(--accent)}
+.contact-card .links-stack a:hover{text-decoration:underline}
+
+@media (max-width:600px){
+  .thankyou-modal{padding:26px}
+  .thankyou-modal h3{font-size:22px}
+}
+@media (max-width:700px){
+  .program-layout{flex-direction:column}
+  .program-card,
+  .program-card.price-card{flex:1 1 100%;max-width:100%}
+  .contact-layout{flex-direction:column}
+  form.contact-card,
+  .contact-card.contact-links{flex:1 1 100%;max-width:100%}
+}
+/* Hide Zoho form container at all times until opened */
+#sf3z273693391453d2a7daa4025aeac149c1d23877f4b04813e01e7d70d0ff1cb741 {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.65);
+  z-index: 9999;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Center the actual form */
+#customForm {
+  background: #fff;
+  margin: 40px auto;
+  max-width: 480px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Roadmap section */
+
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">DN</div>
+        <div>
+          <h1>DTech Nurse</h1>
+          <div style="font-size:13px;color:var(--muted)">Nurse → Data Analyst → Coach</div>
+        </div>
+      </div>
+      <nav aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#programs">Programs</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="#contact" class="cta">Work with me</a>
+      </nav>
+      <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#programs" onclick="closeMenu()">Programs</a>
+  <a href="portfolio.html" onclick="closeMenu()">Portfolio</a>
+  <a href="#contact" onclick="closeMenu()">Work with me</a>
+</div>
+
+    <div class="hero">
+      <div class="hero-card">
+        <div class="tags"><div class="tag">Start Your Data Career</div><div class="tag">For busy women</div><div class="tag">Portfolio-first</div></div>
+        <h3>From Beginner to Confident Data Analyst</h3>
+        <p class="lead">Build the skills you need to step into tech, without quitting your job or losing yourself in the process. My programs and resources are designed for women who want clarity, structure, and real results. You don’t need connections. You don’t need a tech background. You just need the right support.</p>
+        <div class="cta-row">
+          <button class="btn btn-primary" onclick="window.open('https://forms.gle/N9G3wSSJoGMcXbpR7', '_blank')">Join Bootcamp</button>
+          <button class="btn btn-outline" onclick="showZohoForm()">Get Free Bundle</button>
+        </div>
+
+      </div>
+
+      <aside class="profile">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="avatar"><img src="assets/Ibinabo_Adiela-DTechNurse.webp" alt="Ibinabo Adiela" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div>
+            <div style="font-weight:800">Ibinabo — DTech Nurse</div>
+            <div class="muted">Nurse • Data Analyst • Instructor</div>
+            <div style="margin-top:8px;font-size:13px;color:var(--muted)">Port Harcourt, Nigeria</div>
+          </div>
+        </div>
+
+        <div class="kpi">
+          <div class="stat"><div style="font-size:13px;color:var(--muted)">Bootcamp success</div><div class="num">+70% job-ready</div></div>
+          <div class="stat"><div style="font-size:13px;color:var(--muted)">Project completion</div><div class="num">5 real projects</div></div>
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:8px;justify-content:space-between;align-items:center">
+          <a href="#contact" class="pill">Work with me</a>
+          <div style="display:flex;gap:12px;align-items:center">
+            <a href="portfolio.html" target="_blank" rel="noopener noreferrer" style="font-size:13px;color:var(--muted);text-decoration:none">Portfolio</a>
+            <a href="https://www.youtube.com/@IbinaboAdiela" target="_blank" rel="noopener noreferrer" style="font-size:13px;color:var(--muted);text-decoration:none">YouTube</a>
+            <a href="http://linkedin.com/in/ibinaboadiela" target="_blank" rel="noopener noreferrer" style="font-size:13px;color:var(--muted);text-decoration:none">LinkedIn</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <section id="services">
+      <h3>Services & Offers</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:16px;margin-top:12px">
+        <div class="card">
+          <h4>Data Analyst Bootcamp</h4>
+          <div class="muted">Gain guided, practical training that takes you from zero experience to job-ready. Learn the exact tools and project workflows used in real data roles designed specifically for busy women transitioning into tech.</div>
+        </div>
+        <div class="card">
+          <h4>Portfolio Project Playlist</h4>
+          <div class="muted">Follow along with real, beginner-friendly data projects on <a href="https://www.youtube.com/@IbinaboAdiela" target="_blank" rel="noopener noreferrer">Youtube</a>. Learn the full workflow; cleaning, analysis, storytelling, dashboards and build a portfolio you can confidently show employers. </div>
+        </div>
+        <div class="card">
+          <h4>Premium Service</h4>
+          <div class="muted">Get personalized support through 1:1 coaching from learning guidance to portfolio review, job strategy, and interview prep. For women who want accountability, clarity, and faster progress.<a href="#contact" class="pill">Book Now</a></div>
+        </div>
+        <div class="card">
+          <h4>Corporate</h4>
+          <div class="muted">Upskill healthcare teams in analytics and reporting, workshop & training packages.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="programs">
+
+        <h3>Featured Program — DTech Nurse Bootcamp</h3>
+      <div class="program-layout">
+        <div class="card program-card price-card">
+          <!-- <div class="avatar"style="text-align:center;margin-bottom:16px">
+            <img src="assets/Ibinabo_Adiela-DTechNurse.webp" alt="Ibinabo Data Analyst" style="width:200px;height:200px;border-radius:18px;object-fit:cover;box-shadow:0 8px 24px rgba(15,23,42,0.08)">
+          </div> -->
+          <h4>Price</h4>
+          <div class="price">₦50k – ₦150k / $50 – $150</div>
+          <div style="margin-top:auto;padding-top:12px"><button class="btn btn-primary" onclick="window.open('https://forms.gle/N9G3wSSJoGMcXbpR7', '_blank')">Apply Now</button></div>
+        </div>
+        <div class="card program-card">
+          <h4>Overview</h4>
+          <p class="muted">A structured 8–12-week program that takes you from foundational tools (Excel, SQL, Power BI) to a complete portfolio and job-ready confidence. Includes weekly practice, feedback, community, and career preparation.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="about" class="hero">
+
+        <div class="card">
+          <div class="avatar"><img src="assets/Ibinabo_Adiela.webp" alt="Ibinabo Adiela - About" style="width:180px;height:180px;border-radius:18px;object-fit:cover;box-shadow:0 8px 24px rgba(15,23,42,0.08)"></div>
+          <h3>Hello, I'm Ibinabo</h3>
+          <p class="muted">I’m a registered nurse, midwife, and mom who transitioned into data so, I understand what it’s like to chase a better career while juggling real-life responsibilities. I built my data career from zero, and now I teach women to do the same with simple steps, real projects, and support that fits into a busy life.</p>
+        </div>
+          <div class="card">
+            <h3>Projects</h3>
+            <p class="muted">Explore dashboards, reports, and real business insights I’ve built across different industries. If I could learn this from scratch, you can too, one project at a time.</p>
+            <div style="margin-top:16px">
+              <button class="btn btn-primary" onclick="location.href='portfolio.html'">View My Portfolio</button>
+            </div>
+          </div>
+      </section>
+
+    <section id="contact">
+      <h3>Work with me / Contact</h3>
+      <div class="contact-layout">
+        <form class="card contact-card" action="https://formspree.io/f/mdkynprq" method="POST">
+          <label style="display:block;font-weight:700">Name</label>
+          <input name="name" required style="width:100%;padding:10px;margin-top:6px;border-radius:8px;border:1px solid #e6e9ef">
+          <label style="display:block;font-weight:700;margin-top:8px">Email</label>
+          <input type="email" name="email" required style="width:100%;padding:10px;margin-top:6px;border-radius:8px;border:1px solid #e6e9ef">
+          <label style="display:block;font-weight:700;margin-top:8px">Message</label>
+          <textarea name="message" required style="width:100%;padding:10px;margin-top:6px;border-radius:8px;border:1px solid #e6e9ef;min-height:110px"></textarea>
+          <div style="margin-top:auto;padding-top:12px"><button type="submit" class="btn btn-primary">Send Message</button></div>
+        </form>
+
+        <div class="card contact-card contact-links">
+          <h4>Quick Links</h4>
+          <div class="links-stack">
+            <a href="https://x.com/DTechNurse" target="_blank" rel="noopener noreferrer">Twitter</a>
+            <a href="https://www.youtube.com/@IbinaboAdiela" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="http://linkedin.com/in/ibinaboadiela" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </div>
+          <h4 style="margin-top:12px">Free Starter Bundle</h4>
+          <p class="muted">Instant access to my beginner toolkit — Excel shortcuts, roadmap, learning templates, and more. Perfect for women starting their data journey.</p>
+          <div style="margin-top:auto;padding-top:12px"><button class="btn btn-outline" onclick="showZohoForm()">Get Free Bundle</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <strong>DTech Nurse</strong> — Designed for busy women learning data. <span class="muted">Made with care.</span></div>
+    </footer>
+  </div>
+
+<!-- Thank-you modal -->
+<div id="thankyouOverlay" class="thankyou-overlay" role="dialog" aria-modal="true" aria-labelledby="thankyouTitle">
+  <div class="thankyou-modal">
+    <button class="thankyou-close" type="button" onclick="closeThankYouModal()" aria-label="Close">×</button>
+    <h3 id="thankyouTitle">Thank you for signing up!</h3>
+    <p>Check your email to confirm your subscription.</p>
+  </div>
+</div>
+
+<!-- Floating WhatsApp Button -->
+<a class="whatsapp-float" href="https://wa.link/a7bgok" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M19.11 17.53c-.29-.14-1.7-.83-1.96-.92-.26-.1-.45-.14-.64.14-.19.29-.74.92-.91 1.11-.17.19-.34.21-.63.07-.29-.14-1.22-.45-2.32-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.12-.59.12-.12.29-.31.43-.46.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.14-.64-1.54-.88-2.12-.23-.55-.47-.48-.64-.48h-.55c-.19 0-.5.07-.76.36-.26.29-1 1-1 2.43s1.03 2.82 1.18 3.01c.14.19 2.02 3.09 4.89 4.33.68.29 1.21.46 1.62.59.68.22 1.3.19 1.79.12.55-.07 1.7-.69 1.94-1.35.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.33zM16.02 4.01c-6.61 0-11.97 5.36-11.97 11.97 0 2.12.57 4.1 1.57 5.81l-1.67 6.09 6.23-1.63c1.67.91 3.59 1.43 5.84 1.43 6.61 0 11.97-5.36 11.97-11.97s-5.36-11.7-11.97-11.7zm0 21.71c-1.99 0-3.83-.6-5.37-1.63l-.38-.24-3.69.97.99-3.56-.26-.41c-1.01-1.57-1.6-3.42-1.6-5.41 0-5.54 4.51-10.04 10.05-10.04s10.05 4.5 10.05 10.04-4.51 10.04-10.05 10.04z"/>
+  </svg>
+</a>
+<script>
+const menu = document.getElementById('mobileMenu');
+const burger = document.querySelector('.hamburger');
+const thankyouOverlay = document.getElementById('thankyouOverlay');
+
+function toggleMenu(){
+  menu.classList.toggle('show');
+  burger.classList.toggle('active');
+}
+
+function closeMenu(){
+  menu.classList.remove('show');
+  burger.classList.remove('active');
+}
+
+function openThankYouModal(){
+  if(!thankyouOverlay){return;}
+  thankyouOverlay.classList.add('show');
+  document.body.classList.add('modal-open');
+}
+
+function closeThankYouModal(){
+  if(!thankyouOverlay){return;}
+  thankyouOverlay.classList.remove('show');
+  document.body.classList.remove('modal-open');
+  if(window.location.hash === '#thankyou'){
+    history.replaceState(null,'',window.location.pathname + window.location.search);
+  }
+}
+
+function handleHashChange(){
+  if(window.location.hash === '#thankyou'){
+    openThankYouModal();
+  }else{
+    closeThankYouModal();
+  }
+}
+
+if(window.location.hash === '#thankyou'){
+  openThankYouModal();
+}
+
+window.addEventListener('hashchange', handleHashChange);
+
+if(thankyouOverlay){
+  thankyouOverlay.addEventListener('click', function(event){
+    if(event.target === thankyouOverlay){
+      closeThankYouModal();
+    }
+  });
+  document.addEventListener('keydown', function(event){
+    if(event.key === 'Escape' && thankyouOverlay.classList.contains('show')){
+      closeThankYouModal();
+    }
+  });
+}
+</script>
+<!--Zoho Campaigns Web-Optin Form's Header Code Starts Here-->
+
+<script type="text/javascript" src="https://zgpp-zppg.maillist-manage.com/js/optin.min.js" onload="setupSF('sf3z273693391453d2a7daa4025aeac149c1d23877f4b04813e01e7d70d0ff1cb741','ZCFORMVIEW',false,'light',false,'0')"></script>
+<script type="text/javascript">
+	function runOnFormSubmit_sf3z273693391453d2a7daa4025aeac149c1d23877f4b04813e01e7d70d0ff1cb741(th){
+		/*Before submit, if you want to trigger your event, "include your code here"*/
+	};
+</script>
+
+<style>::-webkit-input-placeholder { color: rgb(62, 62, 62) }</style>
+
+<!--Zoho Campaigns Web-Optin Form's Header Code Ends Here--><!--Zoho Campaigns Web-Optin Form Starts Here-->
+
+<div id="sf3z273693391453d2a7daa4025aeac149c1d23877f4b04813e01e7d70d0ff1cb741" data-type="signupform" style="opacity: 1;">
+	<div id="customForm">
+    <button onclick="document.getElementById('sf3z273693391453d2a7daa4025aeac149c1d23877f4b04813e01e7d70d0ff1cb741').style.display='none'" 
+    style="position:absolute; top:10px; right:10px; background:#fff; border-radius:50%; border:none; font-size:20px; cursor:pointer;">
+    ×
+   </button>
+		<div name="SIGNUP_BODY" changeitem="BG_IMAGE" style="width: 300px; height: 445px; position: relative; font-family: &quot;Arial&quot;; background-color: rgb(255, 255, 255); margin: auto; overflow: hidden">
+			<div changeitem="ELEGANTFORM_IMAGE" style="width: 100%; height: 100%; position: absolute; bottom: 0">
+				<img style="width: 100%; height: 100%; position: relative; visibility: visible" src="https://stratus.campaign-image.com/images/12ff85fc2_dtechnurse_free_data_toolkit_1.png">
+			</div>
+			<div style="text-align: center; width: 100%; float: left; margin-top: 115px; position: relative; z-index: 2">
+				<div style="position:relative;">
+					<div id="Zc_SignupSuccess" style="display:none;position:absolute;margin-left:4%;width:90%;background-color: white; padding: 3px; border: 3px solid rgb(194, 225, 154);  margin-top: 10px;margin-bottom:10px;word-break:break-all">
+						<table width="100%" cellpadding="0" cellspacing="0" border="0">
+							<tbody>
+								<tr>
+									<td width="10%">
+										<img class="successicon" src="https://zgpp-zppg.maillist-manage.com/images/challangeiconenable.jpg" align="absmiddle">
+									</td>
+									<td>
+										<span id="signupSuccessMsg" style="color: rgb(73, 140, 132); font-family: sans-serif; font-size: 14px;word-break:break-word">&nbsp;&nbsp;Thank you for Signing Up</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<form method="POST" id="zcampaignOptinForm" style="margin: 0px; width: 100%; color: rgb(255, 255, 255)" action="https://zgpp-zppg.maillist-manage.com/weboptin.zc" target="_zcSignup">
+					<div style="background-color: rgb(255, 235, 232); padding: 10px; color: rgb(210, 0, 0); font-size: 11px; border: 1px solid rgb(255, 217, 211); opacity: 1; position: absolute; width: 80%; margin: 20px 10%; box-shadow: rgb(27, 27, 27) 0px 5px 12px 0px; margin: -50px 10%; z-index: 2; box-sizing: border-box; display: none" id="errorMsgDiv">Please correct the marked field(s) below.</div>
+					<div style="font-size: 18px; font-family: &quot;Poppins&quot;, &quot;Arial&quot;, sans-serif; font-weight: bold; color: rgb(62, 62, 62); line-height: 1.556; text-align: center; margin: 10px 0 15px; width: 100%; float: left">Get your Free Toolkit</div>
+					<div style="font-size: 14px; font-family: &quot;Poppins&quot;, &quot;Arial&quot;, sans-serif; font-weight: normal; color: rgb(62, 62, 62); float: left; text-align: center; width: 100%; margin: 0 0 20px">Start building real data skills today!</div>
+					<div style="position: relative; width: 230px; height: 40px; margin-bottom: 20px; display: inline-block">
+						<input type="text" style="border: 1px solid rgb(188, 188, 188); outline: none; border-radius: 15px; background-color: transparent; width: 100%; height: 100%; color: rgb(136, 136, 136); font-family: &quot;Poppins&quot;, &quot;Arial&quot;, sans-serif; text-align: left; padding: 5px 10px" placeholder="Name" changeitem="SIGNUP_FORM_FIELD" name="FIRSTNAME" id="FIRSTNAME">
+					</div>
+					<div style="text-align: center; width: 230px; height: 40px; margin: auto; margin-bottom: 20px">
+						<div id="Zc_SignupSuccess" style="position: absolute; width: 87%; background-color: white; padding: 3px; border: 3px solid rgb(194, 225, 154); margin-bottom: 10px; word-break: break-all; opacity: 1; display: none">
+							<div style="width: 20px; padding: 5px; display: table-cell">
+								<img class="successicon" src="https://campaigns.zoho.com/images/challangeiconenable.jpg" style="width: 20px">
+							</div>
+							<div style="display: table-cell">
+								<span id="signupSuccessMsg" style="color: rgb(73, 140, 132); font-family: sans-serif; font-size: 14px; line-height: 30px; display: block"></span>
+							</div>
+						</div>
+						<input placeholder="Email Address" changeitem="SIGNUP_FORM_FIELD" name="CONTACT_EMAIL" id="EMBED_FORM_EMAIL_LABEL" type="text" style="border: 1px solid rgb(188, 188, 188); outline: none; border-radius: 15px; background-color: transparent; width: 100%; height: 100%; color: rgb(136, 136, 136); font-family: &quot;Poppins&quot;, &quot;Arial&quot;, sans-serif; text-align: left; padding: 5px 10px">
+					</div>
+					<div style="position: relative; width: 230px; height: 42px; margin-top: 15px; display: inline-block">
+						<input type="button" style="text-align: center; background-color: rgb(181, 63, 136); color: rgb(0, 0, 0); width: 100%; height: 100%; border-radius: 15px; border: 0px; cursor: pointer; outline: none; font-size: 14px; font-weight: bold; font-family: Poppins, Arial, sans-serif" name="SIGNUP_SUBMIT_BUTTON" id="zcWebOptin" value="Download Toolkit!">
+					</div>
+					<input type="hidden" id="fieldBorder" value="">
+					<input type="hidden" id="submitType" name="submitType" value="optinCustomView">
+					<input type="hidden" id="emailReportId" name="emailReportId" value="">
+					<input type="hidden" id="formType" name="formType" value="QuickForm">
+					<input type="hidden" name="zx" id="cmpZuid" value="12ff85fc2">
+					<input type="hidden" name="zcvers" value="3.0">
+					<input type="hidden" name="oldListIds" id="allCheckedListIds" value="">
+					<input type="hidden" id="mode" name="mode" value="OptinCreateView">
+					<input type="hidden" id="zcld" name="zcld" value="115b541140fb9012f">
+					<input type="hidden" id="zctd" name="zctd" value="115b541140fb8ff79">
+					<input type="hidden" id="document_domain" value="">
+					<input type="hidden" id="zc_Url" value="zgpp-zppg.maillist-manage.com">
+					<input type="hidden" id="new_optin_response_in" value="1">
+					<input type="hidden" id="duplicate_optin_response_in" value="0">
+					<input type="hidden" name="zc_trackCode" id="zc_trackCode" value="ZCFORMVIEW">
+					<input type="hidden" id="zc_formIx" name="zc_formIx" value="3z273693391453d2a7daa4025aeac149c1d23877f4b04813e01e7d70d0ff1cb741">
+					<input type="hidden" id="viewFrom" value="URL_ACTION">
+					<span style="display: none" id="dt_CONTACT_EMAIL">1,true,6,Contact Email,2</span>
+					<span style="display: none" id="dt_FIRSTNAME">1,false,1,First Name,2</span>
+					<span style="display: none" id="dt_LASTNAME">1,false,1,Last Name,2</span>
+				</form>
+			</div>
+		</div>
+	</div>
+	<img src="https://zgpp-zppg.maillist-manage.com/images/spacer.gif" id="refImage" onload="referenceSetter(this)" style="display:none;">
+</div>
+<input type="hidden" id="signupFormType" value="QuickForm_Vertical">
+<div id="zcOptinOverLay" oncontextmenu="return false" style="display:none;text-align: center; background-color: rgb(0, 0, 0); opacity: 0.5; z-index: 100; position: fixed; width: 100%; top: 0px; left: 0px; height: 988px;"></div>
+<div id="zcOptinSuccessPopup" style="display:none;z-index: 9999;width: 800px; height: 40%;top: 84px;position: fixed; left: 26%;background-color: #FFFFFF;border-color: #E6E6E6; border-style: solid; border-width: 1px;  box-shadow: 0 1px 10px #424242;padding: 35px;">
+	<span style="position: absolute;top: -16px;right:-14px;z-index:99999;cursor: pointer;" id="closeSuccess">
+		<img src="https://zgpp-zppg.maillist-manage.com/images/videoclose.png">
+	</span>
+	<div id="zcOptinSuccessPanel"></div>
+</div>
+
+<!--Zoho Campaigns Web-Optin Form Ends Here-->
+<script>
+  function showZohoForm() {
+    const zohoForm = document.getElementById('sf3z273693391453d2a7daa4025aeac149c1d23877f4b04813e01e7d70d0ff1cb741');
+    if (zohoForm) {
+      zohoForm.style.display = 'block';
+      document.body.classList.add('modal-open');
+    }
+  }
+  
+  // Close form when user clicks outside the form content
+  document.addEventListener('click', function(e) {
+    const container = document.getElementById('sf3z273693391453d2a7daa4025aeac149c1d23877f4b04813e01e7d70d0ff1cb741');
+    const formBox = document.getElementById('customForm');
+  
+    if (container && e.target === container) {
+      container.style.display = 'none';
+      document.body.classList.remove('modal-open');
+    }
+  });
+  </script>  
+</body>
+</html> 
